@@ -8,9 +8,10 @@ let currentNumberOperand = 0;
 
 // initialize calculator
 function initCalc() {
-    currentOperand.textContent = "";
+    currentOperand.textContent = "0";
     previousOperand.textContent = "";
     currentNumberOperand = 0;
+    arrCurrentOperand = [];
 }
 
 initCalc();
@@ -32,13 +33,17 @@ buttons.forEach(button => {
 
         // delete
         if (this.className == "delete") {
-            if(arrCurrentOperand.length == 1){
+           
+            arrCurrentOperand.pop();
+            currentNumberOperand = arrCurrentOperand.join('');
+
+            if(arrCurrentOperand.length == 0){
                 currentNumberOperand = 0;
+                arrCurrentOperand = [];
+                initCalc();
                 return;
             }
 
-            arrCurrentOperand.pop();
-            currentNumberOperand = arrCurrentOperand.join('');
         }
 
         // clear
