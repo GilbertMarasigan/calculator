@@ -34,6 +34,7 @@
     color: #212529;
     margin-bottom: 5px;
     min-height: 48px;
+    overflow: auto;
   }
 
   .previous-operand {

@@ -27,6 +27,9 @@ function roundToNearest(number, precision) {
     return Math.round(number * factor) / factor;
 }
 
+function hasOperator(arr) {
+    return arr.some(item => ["+", "-", "×", "÷"].includes(item));
+}
 
 function operate() {
 
@@ -34,6 +37,11 @@ function operate() {
     let num2 = [];
     let operator = null;
     let result = null;
+
+    console.log(!hasOperator(arrCurrentOperand));
+    if (!hasOperator(arrCurrentOperand)) {
+        return true;
+    }
 
     arrCurrentOperand.forEach((item) => {
 
