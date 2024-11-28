@@ -146,7 +146,6 @@ buttons.forEach(button => {
             initCalc();
         }
 
-        // number zero
 
         // equals
         else if (this.className == "equals") {
@@ -154,7 +153,7 @@ buttons.forEach(button => {
             operatorCount = 0;
         }
 
-        // equals
+        // dot
         else if (this.className == "dot") {
             console.log(arrCurrentOperand);
             if (!arrCurrentOperand.includes(".")) {
