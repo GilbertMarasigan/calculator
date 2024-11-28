@@ -31,6 +31,10 @@ function hasOperator(arr) {
     return arr.some(item => ["+", "-", "×", "÷"].includes(item));
 }
 
+function isOperator(str) {
+    return ["+", "-", "×", "÷"].includes(str);
+}
+
 function operate() {
 
     let num1 = [];
@@ -101,10 +105,63 @@ function operate() {
     currentOperand.textContent = `${result}`;
     arrCurrentOperand = result.toString().split('');
     console.log(arrCurrentOperand);
+    operatorCount = 0;
 
 }
 
 const buttons = document.querySelectorAll('button');
+
+/*
+document.onkeypress = function (e) {
+    e = e || window.event;
+    console.log(e.key);
+
+    if (isNumber(e.key)) {
+        addNumber(e.key);
+    }
+    else if (isOperator(e.key)) {
+        addOperator(e.key);
+    }
+    else if (e.key == ".") {
+        addDot();
+    }
+    else if(e.key == "Enter" || e.key == "="){
+        operate(arrCurrentOperand);
+    }
+
+    // update display
+    currentOperand.textContent = currentNumberOperand;
+
+};
+*/
+
+function addNumber(number) {
+    arrCurrentOperand.push(number);
+    currentNumberOperand = arrCurrentOperand.join('');
+}
+
+function addOperator(operator) {
+    if (operatorCount < 1) {
+        arrCurrentOperand.push(operator);
+        currentNumberOperand = arrCurrentOperand.join('');
+        operatorCount++;
+    }
+    else {
+        alert("Can only perform one operation at a time");
+    }
+}
+
+function addDot() {
+    console.log(arrCurrentOperand);
+    if (!arrCurrentOperand.includes(".")) {
+        arrCurrentOperand.push(".");
+        currentNumberOperand = arrCurrentOperand.join('');
+    }
+    else {
+        alert('only one dot allowed');
+    }
+}
+
 
 buttons.forEach(button => {
 
@@ -114,22 +171,12 @@ buttons.forEach(button => {
 
         // number
         if (this.className == "number" || this.className == "number zero") {
-            arrCurrentOperand.push(this.textContent);
-            currentNumberOperand = arrCurrentOperand.join('');
-            // currentOperand.textContent = currentNumberOperand;
+            addNumber(this.textContent);
         }
 
         // operator
         else if (this.className == "operator") {
-            if (operatorCount < 1) {
-                arrCurrentOperand.push(this.textContent);
-                currentNumberOperand = arrCurrentOperand.join('');
-                // currentOperand.textContent = currentNumberOperand;
-                operatorCount++;
-            }
-            else {
-                alert("Can only perform one operation at a time");
-            }
+            addOperator(this.textContent);
         }
 
         // delete
@@ -158,25 +205,18 @@ buttons.forEach(button => {
         // equals
         else if (this.className == "equals") {
             operate(arrCurrentOperand);
-            operatorCount = 0;
         }
 
         // dot
         else if (this.className == "dot") {
-            console.log(arrCurrentOperand);
-            if (!arrCurrentOperand.includes(".")) {
-                arrCurrentOperand.push(this.textContent);
-                currentNumberOperand = arrCurrentOperand.join('');
-            }
-            else {
-                alert('only one dot allowed');
-            }
+            addDot();
         }
 
         else {
 
         }
 
+        // update display 
         currentOperand.textContent = currentNumberOperand;
 
     });
