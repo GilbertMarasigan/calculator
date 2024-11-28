@@ -22,6 +22,11 @@ function isNumber(value) {
     return !isNaN(parseFloat(value)) && isFinite(value);
 }
 
+function roundToNearest(number, precision) {
+    const factor = Math.pow(10, precision);
+    return Math.round(number * factor) / factor;
+}
+
 
 function operate() {
 
@@ -53,8 +58,14 @@ function operate() {
         "operator": operator
     });
 
-    // perform operation
 
+    if (num2 == 0 && operator == "÷") {
+        alert('lol!');
+        initCalc();
+        return
+    }
+
+    // perform operation
     switch (operator) {
         case "+":
             result = num1 + num2;
@@ -71,6 +82,8 @@ function operate() {
         default:
             break;
     }
+
+    result = roundToNearest(result, 2);
 
     console.log({ result });
 
@@ -139,6 +152,18 @@ buttons.forEach(button => {
         else if (this.className == "equals") {
             operate(arrCurrentOperand);
             operatorCount = 0;
+        }
+
+        // equals
+        else if (this.className == "dot") {
+            console.log(arrCurrentOperand);
+            if (!arrCurrentOperand.includes(".")) {
+                arrCurrentOperand.push(this.textContent);
+                currentNumberOperand = arrCurrentOperand.join('');
+            }
+            else {
+                alert('only one dot allowed');
+            }
         }
 
         else {
